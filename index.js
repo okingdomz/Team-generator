@@ -1,17 +1,147 @@
+
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateTeam = require('./src/template.js');
+
 
 // team modules generation
 const engineer = require('./team/engineer');
 const intern = require('./team/intern');
 const manager = require('./team/manager');
 
+// added for team push
+// const OUTPUT_DIR = path.resolve(__dirname, "export");
+// const outputPath = path.join(OUTPUT_DIR, "index.html");
+const generateTeam = require('./src/template.js')
+
+
 // answers to questions in an array
+// const StaffMemberData = [];
 const StaffMemberData = [];
 
+// function TeamGen () {
+//     function createTeam () {
+//         inquirer.prompt([{
+//             type: 'list',
+//             message: 'what is your role?',
+//             name: 'addEmployeePrompt',
+//             choices: ['intern', 'manager', 'engineer']
+//         }]).then(function (userInput) {
+//             switch(userInput.addEmployeePrompt) {
+//                 case 'manager':
+//                     addManager();
+//                     break;
+//                 case 'engineer':
+//                     addEngineer();
+//                     break;
+//                 case 'intern':
+//                     addIntern();
+//                     break;
+//                 default:
+//                     htmlBuilder();
+//             }
+//         })
+//     }
+//     function addManager() {
+//         inquirer.prompt ([
+//             {
+//                 type: 'input',
+//                 name: 'managerName',
+//                 message: 'managers name?'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'managerId',
+//                 message: 'what is the managers ID number'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'managerEmail',
+//                 message: 'what is the managers email'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'managerOfficeNumber',
+//                 message: 'what is the managers office number'
+//             }
+
+//         ]).then(answers => {
+//             const manager = new Manager(answer.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
+//             StaffMemberData.push(manager);
+//             createTeam();
+//         });
+//     }
+
+//     function addEngineer() {
+//         inquirer.prompt([
+//             {
+//                 type: 'input',
+//                 name: 'engineerName',
+//                 message: 'engineers name?'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'engineerId',
+//                 message: 'what is the engineers ID number'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'engineerEmail',
+//                 message: 'what is the engineers email'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'engineerGithub',
+//                 message: 'what is the engineers github username'
+//             }
+//         ]).then(answers => {
+//             const engineer = new engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+//             StaffMemberData.push(engineer);
+//             createTeam();
+//         });
+//     }
+//     function addIntern() {
+//         inquirer.prompt([
+//             {
+//                 type: 'input',
+//                 name: 'internName',
+//                 message: 'intern name?'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'internId',
+//                 message: 'intern id?'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'internEmail',
+//                 message: 'intern email address?'
+//             },
+//             {
+//                 type: 'input',
+//                 name: 'internSchool',
+//                 message: 'intern school?'
+//             }
+//         ]).then(answers => {
+//             const intern = new intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+//             StaffMemberData.push(intern);
+//             createTeam();
+//         });
+//     }
+
+//     function htmlBuilder () {
+//         console.log('team made for the world')
+//         fs.writeFileSync(outputPath, generateTeam(StaffMemberData), 'utf-8')
+//     }
+//     createTeam();
+
+
+
+// }
+
+// TeamGen();
+
 // cli questions 
-//  async is for promises, and to interact with the awit clause to wait for user input before making next decision
+//  async is for promises, and to interact with the await clause to wait for user input before making next decision
 const questions = async () => {
     const answers = await inquirer.prompt ([
         {
@@ -36,7 +166,7 @@ const questions = async () => {
             choices: ['intern', 'manager', 'engineer'],
         },
     ])
-
+    console.log("this is answers : ", answers)
     if (answers.role === "manager") {
         const managerAns = await inquirer.prompt([
             {
@@ -87,32 +217,45 @@ const questions = async () => {
     }
 };
 async function promptQuestions() {
-    await questions()
+    await questions();
 
     const addMemberAns = await inquirer.prompt([
         {
             name: 'addMember',
             type: 'list',
-            choices: ['New member?', 'create team?'],
+            choices: ['New member?', 'create team'],
             message: 'next decision?'
         }
     ])
-
-    if (addMemberAns.addMember === 'Add a new member?') {
+    console.log("this is add memeber answers", addMemberAns)
+// might be the problem
+    if (addMemberAns.addMember === "New member?") {
         return promptQuestions()
-        // can it change to just exporting team?
-    } else
+        
+    } else{
     return createTeam();
+    }
 
 }
 
-promptQuestions();
+
+
+
 
 function createTeam () {
-    console.log('new person', StaffMemberData)
-    fs.writeFileSync(
+    //console.log('new person', StaffMemberData)
+    try{
+   fs.writeFileSync(
         "./export/index.html",
         generateTeam(StaffMemberData),
         "utf-8"
     );
+    console.log("file has been created")
+   }
+   catch(err){
+    console.log("THIS IS ERROR: ", err)
+   }
+    
 }
+
+promptQuestions()

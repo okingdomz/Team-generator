@@ -58,18 +58,18 @@ const generateTeam = (team) => {
 // adds elements to the end of an array and returns the new length if the array
     html.push(
         team
-        .filter((employee) => employee.getRole() === "manager")
+        .filter(employee => employee.getRole() === "manager")
         .map((manager) => generateManager(manager))
     );
     html.push(
         team
-        .filter((employee) => employee.getRole() === "engineer")
+        .filter(employee => employee.getRole() === "engineer")
         .map((engineer) => generateEngineer(engineer))
         .join("")
     );
     html.push(
         team
-        .filter((employee) => employee.getRole() === "intern")
+        .filter(employee => employee.getRole() === "intern")
         .map((intern) => generateIntern(intern))
         .join("")
     );
@@ -77,7 +77,7 @@ const generateTeam = (team) => {
     return html.join("");
 };
 
-module.exports = (team) => {
+module.exports = team => {
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -109,5 +109,5 @@ module.exports = (team) => {
     </div>
 </body>
 </html>
-    `
+    `;
 };

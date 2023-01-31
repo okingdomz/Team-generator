@@ -48,7 +48,9 @@ If you followed tutorials, include links to those here as well.
 Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
 
 
-## How to Contribute
+## Walkthrough Video
+https://drive.google.com/file/d/1ffgTnD-RMXujPPgc6DM0mKjREhyY3Oun/view
+
 
 **Send investment money to:** 
 [Github](https://github.com/okingdomz).

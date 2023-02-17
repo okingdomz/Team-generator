@@ -21,7 +21,7 @@ Using the VSC terminal, the user will input the information of their role in the
 ## Photo
 
 
-
+To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
     ![screenshot](assets/images/screenshot.PNG)
 
     <img src="assets/images/screenshot.PNG">
